@@ -5,7 +5,12 @@ import re
 
 def get_all_dirs_by_suffix(dir: str, suffixes: list) -> list:
     array: list = list()
-    current_dir: list = os.listdir(dir)
+
+    try:
+        current_dir: list = os.listdir(dir)
+    except FileNotFoundError:
+        print('Can\'t find directory: ' + dir + '!')
+        sys.exit(-1)
 
     for d in current_dir:
         curr = dir + '/' + d
@@ -22,13 +27,19 @@ def get_all_dirs_by_suffix(dir: str, suffixes: list) -> list:
 def get_lines_count(dir: str, conside_empty: bool = True) -> int:
     lines_count: int
 
-    with open(dir, 'r') as f:
-        lines: list = f.readlines()
+    try:
 
-        if (not conside_empty):
-            lines = [line.strip() for line in lines if line.strip() != ""]
+        with open(dir, 'r') as f:
+            lines: list = f.readlines()
 
-        lines_count = len(lines)
+            if (not conside_empty):
+                lines = [line.strip() for line in lines if line.strip() != ""]
+
+            lines_count = len(lines)
+    
+    except UnicodeDecodeError:
+        print('UnicodeDecodeError!')
+        sys.exit(-1)
 
     return lines_count
 
