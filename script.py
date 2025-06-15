@@ -25,7 +25,7 @@ def get_all_dirs_by_suffix(dir: str, suffixes: list) -> list:
 
 
 def get_lines_count(dir: str, conside_empty: bool = True) -> int:
-    lines_count: int
+    lines_count: int = 0
 
     try:
 
@@ -39,7 +39,7 @@ def get_lines_count(dir: str, conside_empty: bool = True) -> int:
     
     except UnicodeDecodeError:
         print('UnicodeDecodeError!')
-        sys.exit(-1)
+        #sys.exit(-1)
 
     return lines_count
 
